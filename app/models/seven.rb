@@ -1,0 +1,3 @@
+class seven < Court
+
+end
