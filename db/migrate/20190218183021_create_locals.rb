@@ -11,6 +11,6 @@ class CreateLocals < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :locals, :name
+    add_index :locals, :name, unique: true
   end
 end

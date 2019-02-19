@@ -5,8 +5,8 @@ class ChangeColumnsOfUsers < ActiveRecord::Migration[5.1]
   	change_column_null :users, :name, false
   	change_column_null :users, :type, false
 
-  	add_index :users, :nickname
-  	add_index :users, :email
+  	add_index :users, :nickname, unique: true
+  	add_index :users, :email, unique: true
 
   end
 end

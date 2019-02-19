@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190218213131) do
+ActiveRecord::Schema.define(version: 20190218235951) do
 
   create_table "courts", force: :cascade do |t|
     t.integer "number", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20190218213131) do
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_locals_on_name"
+    t.index ["name"], name: "index_locals_on_name", unique: true
     t.index ["owner_id"], name: "index_locals_on_owner_id"
   end
 
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 20190218213131) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id_and_follower_id", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "court_id"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["court_id", "date"], name: "index_reservations_on_court_id_and_date", unique: true
+    t.index ["court_id"], name: "index_reservations_on_court_id"
+    t.index ["date"], name: "index_reservations_on_date"
+    t.index ["player_id", "court_id", "date"], name: "index_reservations_on_player_id_and_court_id_and_date", unique: true
+    t.index ["player_id"], name: "index_reservations_on_player_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", null: false
@@ -58,8 +71,8 @@ ActiveRecord::Schema.define(version: 20190218213131) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["nickname"], name: "index_users_on_nickname"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
 end

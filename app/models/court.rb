@@ -6,4 +6,6 @@ class Court < ApplicationRecord
   validates :size, presence: true
   validates :indoor, presence: true
   validates :type, presence: true, inclusion: {in: %w(Five Seven Eleven Basketball Tennis), message: "%{type} is not a type."}
+
+  has_many :reservations
 end
