@@ -1,29 +1,49 @@
 require 'rails_helper'
+require 'pp'
 
 RSpec.describe User, type: :model do
-  context "owner con varios telefonos" do
-  	it "crea owner con dos telefonos" do
-  		
-  		user = User.create!({nickname: "@coso123", email: "sdkd17@gmail.com", name: "Sergio Klein",
-  															 phones: ["091641733", "43425211"], type: "Owner", description: ""})
+  context "when it is not valid because" do
+    let(:user)       { build(:player, phones: ["091641733", "43425211"])}
+    let(:user_short) { build(:player, nickname: "@ac")}
+    let(:user_email) { build(:player, email: "asdc")}
+  	let(:user_type)  { build(:player, type: "Admin")}
 
+    it "has two phones" do
+      expect(user.valid?).to be true
   		expect(user.phones).to eq (["091641733", "43425211"])
-
   	end
 
-  	it "creates two users with same nickname and email" do
-			user = User.create!({nickname: "@coso123", email: "sdkd17@gmail.com", name: "Sergio Klein",
-  															 phones: ["091641733", "43425211"], type: "Owner", description: ""})
-  		
-  		begin
-  			user1 = User.create!({nickname: "@coso123", email: "sdkd17@gmail.com", name: "Sergio Klein",
-  															 phones: ["091641733", "43425211"], type: "Owner", description: ""})
-  		rescue	StandardError => e 
-  			puts e
-  		end	
+    it "has a short nickname" do
+      user_short.valid?
+      expect(user_short.errors[:nickname]).to eq ["nickname too short"]
+    end
 
-  		expect(User.all).to eq([user])
+    it "has an invalid emal" do
+      user_email.valid?
+      expect(user_email.errors[:email]).to eq ["wrong email"]
+    end
+
+    it "has an invalid type" do
+      user_type.valid?
+      expect(user_type.errors[:type]).to eq ["wrong type"]
+    end
+  end
+
+  context "when it is not valid because" do
+    let!(:player)  { create(:player) }
+    let(:player1) { build(:player, email: "coso@coso.com") }
+    let(:player2) { build(:player, nickname: "@cosocoso") }
+  	
+    it "there are two users with same nickname" do
+      player1.valid?
+      # pp player1.errors
+      expect(player1.errors[:nickname]).to eq ["has already been taken"]
 		end  		
+
+    it "there are two users with same email" do
+      player2.valid?
+      expect(player2.errors[:email]).to eq ["has already been taken"]
+    end
   end
 
   context "followers and following" do
@@ -48,8 +68,8 @@ RSpec.describe User, type: :model do
       expect([u1,u2]).to eq([u2.following.first,u1.following.first])
 
     end
-
-
   end
+
+  
 
 end

@@ -2,21 +2,33 @@ require 'rails_helper'
 
 RSpec.describe Court, type: :model do
   
+  let!(:owner)        { create(:owner)}
+  let!(:local)        { create(:local)}
+  let!(:five)         { create(:five)}
+  let!(:five_2)       { create(:five, number: 2)}
+
   context "create courts for a local of an owner" do
   	it "create courts" do
-
-  		#create user
-  		owner = User.create!({nickname: "@coso123", email: "sdkd17@gmail.com", name: "Sergio Klein",
-  															 phones: ["091641733", "43425211"], type: "Owner", description: ""})
-
-  		#create a local for the owner
-  		local = Local.create!({name: "Cordon F5", address: "Minas 1719", phones:[], email: "sdkd17@gmail.com", 
-																opens: Time.new(2019,01,01,15), closes:Time.new(2019,01,01,22), owner_id: owner.id})
-
-  		#create a court for the local
-  		court = Court.create!({number: 1, size: "20mx50m", indoor: true, local_id: local.id, type: "Five"})
-
-  		expect(court).to eq(owner.locals.first.courts.first)
+  		expect(five).to eq(owner.locals.first.courts.first)
   	end
   end
+
+  context "when number already exists" do
+    let(:five_number)   { build(:five)}
+
+    it "fails" do
+      # five_number.save
+      expect {five_number.save}.to raise_error {ActiveRecord::RecordNotUnique}
+    end
+  end
+
+  context "when creating" do
+    let(:five_type)     { build(:five, type: "waterpolo")}
+
+    it "fails because of type" do
+      five_type.valid?
+      expect(five_type.errors[:type]).to eq ["wrong type of Court"]
+    end
+  end
+
 end

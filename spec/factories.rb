@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :relationship_invitation do
+    invitator_id { 1 }
+    invited_id { 1 }
+    reservation { nil }
+    confirmed { false }
+  end
+
   
   # factory :user do
   #   nickname {"@ante_34"}
@@ -44,6 +51,14 @@ FactoryBot.define do
   	indoor {true}
   	local_id {Local.all.first.id}
   	type {"Five"}
+  end
+
+
+  factory :reservation do
+    player_id {Player.all.first}
+    court_id {Court.all.first} 
+    date {DateTime.new(2019,02, 19, 20)}
+
   end
 
 end
