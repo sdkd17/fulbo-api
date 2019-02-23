@@ -51,11 +51,11 @@ class UsersController < ApplicationController
 
     def create_params
       # puts params
-      params.require(:user).permit(:nickname, :email, :name, :phones, :type, :description)
+      params.require(:user).permit(:nickname, :email, :name, :phones, :type)
     end
 
     def update_params
-      params.permit(:nickname, :email, :name, :phones, :description)
+      params.permit(:nickname, :email, :name, :phones)
     end
 
 end
