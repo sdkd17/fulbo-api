@@ -10,6 +10,16 @@ en:
       code: 40101
       title: "Could not create the user"
       detail: "Bad input to create the user. Missing some parameters."
+    # Owners
+    owner_not_found:
+      code: 20101
+      title: "Could not find Owner"
+      detail: "This owner does not exist, or has been deleted."
+    # Players
+    owner_not_found:
+      code: 20101
+      title: "Could not find Player"
+      detail: "This player does not exist, or has been deleted."
     # Manufacturers
     manufacturers_not_found:
       code: 20201
