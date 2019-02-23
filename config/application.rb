@@ -29,5 +29,9 @@ module FulboApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.after_initialize do
+        Rails.application.routes.default_url_options[:host] = ENV['HOST'] || 'localhost:3000'
+    end
   end
 end

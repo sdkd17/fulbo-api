@@ -1,0 +1,17 @@
+en:
+  error_messages:
+
+    # Users
+    user_not_found:
+      code: 20101
+      title: "Could not find user"
+      detail: "This user does not exist, or has been deleted."
+    bad_parameters:
+      code: 40101
+      title: "Could not create the user"
+      detail: "Bad input to create the user. Missing some parameters."
+    # Manufacturers
+    manufacturers_not_found:
+      code: 20201
+      title: "Could not find manufacturer"
+      detail: "This manufacturer is no longer available."
