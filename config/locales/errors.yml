@@ -16,12 +16,12 @@ en:
       title: "Could not find Owner"
       detail: "This owner does not exist, or has been deleted."
     # Players
-    owner_not_found:
+    player_not_found:
       code: 20101
       title: "Could not find Player"
       detail: "This player does not exist, or has been deleted."
-    # Manufacturers
-    manufacturers_not_found:
-      code: 20201
-      title: "Could not find manufacturer"
-      detail: "This manufacturer is no longer available."
+    # Locals
+    local_not_found:
+      code: 20101
+      title: "Could not find Local"
+      detail: "This local does not exist, or has been deleted."

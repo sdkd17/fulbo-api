@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'pp'
 
 RSpec.describe UsersController, type: :controller do
 
@@ -62,7 +62,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "return http bad request if the nickname already exists" do
       #
-      post :create, params: { user: {nickname: "@ante_34", email: "sdkd17@gmail.com", name: "new player", phones:["099123456"], type: "Player"}}
+      post :create, params: { user: {nickname: player.nickname, email: "sdkd17@gmail.com", name: "new player", phones:["099123456"], type: "Player"}}
       expect(response).to have_http_status(:bad_request)
       
       #returns an error
@@ -70,7 +70,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "return http bad request if the email already exists" do
-      post :create, params: { user: {nickname: "@sdkd17", email: "ante43@gmail.com", name: "new player", phones:["099123456"], type: "Player"}}
+      post :create, params: { user: {nickname: "@sdkd17", email: player.email, name: "new player", phones:["099123456"], type: "Player"}}
       expect(response).to have_http_status(:bad_request)
       #return an error
       expect(response.body).to include "already been taken"

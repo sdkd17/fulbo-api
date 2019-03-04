@@ -1,10 +1,10 @@
 FactoryBot.define do
-  factory :relationship_invitation do
-    invitator_id { 1 }
-    invited_id { 1 }
-    reservation { nil }
-    confirmed { false }
-  end
+  # factory :relationship_invitation do
+  #   invitator_id { 1 }
+  #   invited_id { 1 }
+  #   reservation { nil }
+  #   confirmed { false }
+  # end
 
   
   # factory :user do
@@ -17,8 +17,11 @@ FactoryBot.define do
   # end  
 
   factory :player do
-    nickname {"@ante_34"}
-    email {"ante43@gmail.com"}
+
+    sequence( :nickname ) { |n| "player_#{n}" }
+    sequence( :email ) { |n| "emailPlayer#{n}@mail.com" }
+    # nickname {"@ante_34"}
+    # email {"ante43@gmail.com"}
     name {"Giannis Antetokounmpo"}
     phones {["093939393"]}
     type {"Player"}
@@ -26,8 +29,8 @@ FactoryBot.define do
   end
 
   factory :owner do
-    nickname {"@sdkd17"}
-    email {"sdkd17@gmail.com"}
+    sequence( :nickname ) { |n| "owner_#{n}" }
+    sequence( :email ) { |n| "emailOwner#{n}@mail.com" }
     name {"Sergio Klein"}
     phones {["091641733"]}
     type {"Owner"}
@@ -35,13 +38,15 @@ FactoryBot.define do
   end
 
   factory :local do
-  	name {"local_1"}
+  	association :owner, factory: :owner 
+
+    sequence( :name ) { |n| "local_#{n}" }
+    sequence( :email ) { |n| "local#{n}@mail.com" }
   	address {"adress 123"}
   	phones {["123456789"]}
-  	email {"local1@email.com"}
   	opens {Date.new(2019, 01, 01, 15)}
   	closes {Date.new(2019, 01, 01, 22)}
-  	owner_id {Owner.all.first.id}
+
   end
 
 
@@ -49,7 +54,8 @@ FactoryBot.define do
   	number {1}
   	size {"20x50"}
   	indoor {true}
-  	local_id {Local.all.first.id}
+    association :local, factory: :local
+  	# local_id {Local.all.first.id}
   	type {"Five"}
   end
 
