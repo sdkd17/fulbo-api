@@ -25,9 +25,13 @@ RSpec.describe OwnersController, type: :controller do
 
   describe "GET #show" do
     let!(:owner) { create(:owner) }
+    let!(:local) { create(:local, owner: owner)}
+    let!(:five) {create(:five, local: local)}
+
     it "returns http success" do
       get :show, params: {id: owner.id}
       expect(response).to have_http_status(:success)
+      # puts response.body
       expect(response.body).to eq owner.to_json
     end
 
@@ -35,6 +39,7 @@ RSpec.describe OwnersController, type: :controller do
       get :show, params: {id: 500}
       expect(response). to have_http_status(404)
     end
+
   end
 
 end

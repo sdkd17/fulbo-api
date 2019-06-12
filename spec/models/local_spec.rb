@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Local, type: :model do
-  context "creacion de un local" do
-  	it "creates a local and an owner" do
+  context " when creating locals, " do
+  	it "the Owner has the local" do
   		#creates the user
   		owner = User.create!({nickname: "@coso123", email: "sdkd17@gmail.com", name: "Sergio Klein",
   															 phones: ["091641733", "43425211"], type: "Owner", description: ""})
 
-			#creates the local for the user
+			#creates the local for the owner
 			local = Local.create!({name: "Cordon F5", address: "Minas 1719", phones:[], email: "sdkd17@gmail.com", 
 																opens: Time.new(2019,01,01,15), closes:Time.new(2019,01,01,22), owner_id: owner.id})
 
@@ -16,7 +16,7 @@ RSpec.describe Local, type: :model do
   	end
   end
 
-  context "when creating a local" do
+  context "when creating a local, " do
     let!(:player)     { create(:player) }
     let!(:owner)      { create(:owner) }
     let(:local)       { build(:local, owner_id: player.id)}
@@ -31,15 +31,15 @@ RSpec.describe Local, type: :model do
       expect(local_short.errors[:name]).to eq ["name too short"]
     end
 
-    it "fails if its a player" do
+    it "fails if user is a player" do
       expect {local.save!}.to raise_error {ActiveRecord::RecordInvalid}
     end
 
-    it "success if its an owner" do
+    it "success if user is an owner" do
       expect(local1.valid?).to be true
     end
 
-    it "fails if already exists another local with same name" do
+    it "fails if already exists another local with the same name" do
       local_name2.valid?
       # pp local_name2.errors
       expect(local_name2.errors[:name]).to eq ["has already been taken"]

@@ -51,7 +51,7 @@ FactoryBot.define do
 
 
   factory :five do
-  	number {1}
+  	sequence ( :number ) { |n| n}
   	size {"20x50"}
   	indoor {true}
     association :local, factory: :local

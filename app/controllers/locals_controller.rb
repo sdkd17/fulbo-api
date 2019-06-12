@@ -10,7 +10,6 @@ class LocalsController < ApplicationController
 
   def index
     @locals = Local.all
-
     render json: @locals, status: :ok
   end
 

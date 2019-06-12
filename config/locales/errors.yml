@@ -25,3 +25,8 @@ en:
       code: 20101
       title: "Could not find Local"
       detail: "This local does not exist, or has been deleted."
+
+    court_not_found:
+      code: 20101
+      title: "Could not find Court"
+      detail: "This court does not exist, or has been deleted."

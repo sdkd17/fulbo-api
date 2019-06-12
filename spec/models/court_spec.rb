@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Court, type: :model do
   
   let!(:owner)        { create(:owner)}
-  let!(:local)        { create(:local)}
-  let!(:five)         { create(:five)}
-  let!(:five_2)       { create(:five, number: 2)}
+  let!(:local)        { create(:local, owner: owner)}
+  let!(:five)         { create(:five, local: local)}
+  let!(:five_2)       { create(:five, local: local, number: 2)}
 
   context "create courts for a local of an owner" do
   	it "create courts" do
@@ -13,17 +13,15 @@ RSpec.describe Court, type: :model do
   	end
   end
 
-  context "when number already exists" do
-    let(:five_number)   { build(:five)}
+  context "when creating" do
+    
+    let(:five_type)     { build(:five, type: "waterpolo")}
+    let(:five_number)   { build(:five, number: 1)}
 
-    it "fails" do
+    it "fails if number already exits" do
       # five_number.save
       expect {five_number.save}.to raise_error {ActiveRecord::RecordNotUnique}
     end
-  end
-
-  context "when creating" do
-    let(:five_type)     { build(:five, type: "waterpolo")}
 
     it "fails because of type" do
       five_type.valid?

@@ -30,9 +30,9 @@ RSpec.describe User, type: :model do
   end
 
   context "when it is not valid because" do
-    let!(:player)  { create(:player) }
-    let(:player1) { build(:player, email: "coso@coso.com") }
-    let(:player2) { build(:player, nickname: "@cosocoso") }
+    let!(:player)  { create(:player, nickname: "@cosocoso", email: "coso@coso.com") }
+    let(:player1) { build(:player, nickname: "@cosocoso") }
+    let(:player2) { build(:player, email: "coso@coso.com") }
   	
     it "there are two users with same nickname" do
       player1.valid?
